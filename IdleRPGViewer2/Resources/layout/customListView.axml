@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="2dp">
+    <LinearLayout
+        android:id="@+id/TextLV1"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dip"
+        android:showDividers="middle"
+        android:clickable="true"
+        android:longClickable="true"
+        android:contextClickable="true">
+        <TextView xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/DateText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12dip"
+            android:textStyle="bold"
+            tools:text="Date/Time" />
+        <TextView xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/EventText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14dip"
+            android:paddingLeft="5dip"
+            tools:text="Event Text"
+            android:paddingRight="10dip"
+            android:minLines="2"
+            android:maxLines="6"
+            android:lines="3"
+            android:clickable="true"
+            android:longClickable="true"
+            android:textIsSelectable="true"
+            android:selectAllOnFocus="true" />
+    </LinearLayout>
+</RelativeLayout>

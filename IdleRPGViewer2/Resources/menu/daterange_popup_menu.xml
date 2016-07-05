@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:id="@+id/daterange6hours"
+        android:title="Last Six Hours" />
+  <item android:id="@+id/daterange12hours"
+        android:title="Last 12 Hours" />
+  <item android:id="@+id/daterange24hours"
+        android:title="Last 24 Hours" />
+  <item android:id="@+id/daterange48hours"
+        android:title="Last 48 Hours" />
+</menu>

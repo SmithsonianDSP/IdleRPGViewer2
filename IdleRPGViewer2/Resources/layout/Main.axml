@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:actionBarNavMode="list">
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="25.3dp"
+        android:layout_marginBottom="0.0dp" />
+    <TableLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tableLayout1">
+        <TableRow
+            android:id="@+id/tableRow1">
+            <TextView
+                android:text="@string/FilterUsername"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="0"
+                android:id="@+id/UserFilterLabel"
+                android:layout_width="119.0dp"
+                tools:text="@string/FilterUsername"
+                android:typeface="normal"
+                android:layout_height="25.3dp"
+                android:layout_marginLeft="5dp" />
+            <Button
+                android:layout_column="1"
+                android:layout_width="240.3dp"
+                android:layout_height="37.3dp"
+                android:textAllCaps="false"
+                android:hint="@string/FilterUsernameHint"
+                android:id="@+id/FilterUserNameButton" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow2">
+            <TextView
+                android:text="@string/FilterEventType"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="0"
+                android:id="@+id/EventTypeFilter"
+                android:layout_width="119.0dp"
+                tools:text="@string/FilterEventType"
+                android:typeface="normal"
+                android:layout_height="25.3dp"
+                android:layout_marginLeft="5dp" />
+            <Button
+                android:layout_column="1"
+                android:layout_width="240.3dp"
+                android:layout_height="37.3dp"
+                android:textAllCaps="false"
+                android:hint="@string/FilterEventTypeHint"
+                android:id="@+id/FilterEventTypeButton" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow3">
+            <TextView
+                android:text="@string/FilterDateRange"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="0"
+                android:id="@+id/FilterDateRangeLabel"
+                android:layout_width="119.0dp"
+                tools:text="@string/FilterDateRange"
+                android:typeface="normal"
+                android:layout_height="25.3dp"
+                android:layout_marginLeft="5dp" />
+            <Button
+                android:layout_column="1"
+                android:layout_width="240.3dp"
+                android:layout_height="37.3dp"
+                android:textAllCaps="false"
+                android:hint="@string/FilterDateRangeHint"
+                android:id="@+id/FilterDateRangeButton" />
+        </TableRow>
+    </TableLayout>
+    <Button
+        android:id="@+id/MyButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Reload"
+        android:layout_marginTop="20.0dp"
+        android:textAllCaps="false" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="55.0dp"
+        android:id="@+id/space1"
+        android:layout_gravity="fill"
+        android:layout_weight="1" />
+    <Button
+        android:id="@+id/MyButton2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/SampleButtonText"
+        android:layout_marginTop="106.0dp"
+        android:capitalize="words"
+        android:textAllCaps="false"
+        android:textSize="6pt"
+        android:textStyle="normal"
+        android:typeface="monospace"
+        android:fadingEdge="horizontal"
+        android:fadingEdgeLength="50dp"
+        android:foregroundTint="#f0ffffff"
+        android:backgroundTint="#4682b4ff"
+        android:backgroundTintMode="src_in" />
+</LinearLayout>

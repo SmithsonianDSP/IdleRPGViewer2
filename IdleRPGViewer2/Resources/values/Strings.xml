@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Reload">Load Events</string>
+    <string name="ApplicationName">IdleRPGViewer2</string>
+    <string name="FilterUsername">Username:</string>
+    <string name="FilterUsernameHint">SmithsonianDSP</string>
+    <string name="FilterEventType">Event Type:</string>
+    <string name="FilterEventTypeHint">All</string>
+    <string name="FilterDateRange">Time Span:</string>
+    <string name="FilterDateRangeHint">Last 6 Hours</string>
+
+  <string name="SampleButtonText">Start/Stop Service</string>
+</resources>

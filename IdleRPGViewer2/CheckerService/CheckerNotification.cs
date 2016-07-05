@@ -12,7 +12,7 @@ namespace IdleRPGViewer2
     static class CheckerNotification
     {
 
-        static readonly int EventNotificationId = 1000;
+        static readonly int eventNotificationId = 1000;
 
         public static void NotifyNewEvent(Context packageContext, EventRow[] eventrow = null)
         {
@@ -62,7 +62,7 @@ namespace IdleRPGViewer2
             var notificationManager = (NotificationManager)Application.Context.GetSystemService(Context.NotificationService);
 
             var notification = builder.Build();
-            notificationManager.Notify(EventNotificationId, notification);
+            notificationManager.Notify(eventNotificationId, notification);
 
         }
     }

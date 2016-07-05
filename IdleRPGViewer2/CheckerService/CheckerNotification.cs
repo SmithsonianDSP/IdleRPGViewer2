@@ -12,35 +12,35 @@ namespace IdleRPGViewer2
     static class CheckerNotification
     {
 
-        private static readonly int EventNotificationId = 1000;
+        static readonly int EventNotificationId = 1000;
 
         public static void NotifyNewEvent(Context packageContext, EventRow[] eventrow = null)
         {
 
             // Construct a back stack for cross-task navigation:
-            TaskStackBuilder stackBuilder = TaskStackBuilder.Create(packageContext);
+            var stackBuilder = TaskStackBuilder.Create(packageContext);
             stackBuilder.AddParentStack(Java.Lang.Class.FromType(typeof(MainActivity)));
 
-            Intent resultIntent = new Intent(packageContext, typeof(MainActivity));
+            var resultIntent = new Intent(packageContext, typeof(DisplayActivity));
+            resultIntent.PutExtra("username", "SmithsonianDSP");
+            resultIntent.PutExtra("eventfilter", -1);
+            resultIntent.PutExtra("daterange", 6);
+
             stackBuilder.AddNextIntent(resultIntent);
 
             // Create the PendingIntent with the back stack:            
-            PendingIntent resultPendingIntent =
-                stackBuilder.GetPendingIntent(0, (int)PendingIntentFlags.UpdateCurrent);
-
-
-            StringBuilder sb = new StringBuilder();
+            var resultPendingIntent = stackBuilder.GetPendingIntent(0, (int)PendingIntentFlags.UpdateCurrent);
 
             //build the notification text
+            var sb = new StringBuilder();
             foreach (var rw in eventrow)
             {
                 sb.AppendLine(rw.EventText);
             }
 
             
-
             // Build the notification:
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(packageContext)
+            var builder = new NotificationCompat.Builder(packageContext)
                 .SetAutoCancel(true)                        // Dismiss from the notif. area when clicked
                 .SetContentIntent(resultPendingIntent)      // Start 2nd activity when the intent is clicked.
                 .SetContentTitle("New IdleRPG XP Event")    // Set its title
@@ -48,7 +48,7 @@ namespace IdleRPGViewer2
                 .SetSmallIcon(Resource.Drawable.Icon04)     // Display this icon
                 .SetContentText(sb.ToString());             // The message to display.
 
-            NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+            var inboxStyle = new NotificationCompat.InboxStyle();
             inboxStyle.SetBigContentTitle("New IdleRPG Events:");
 
             foreach (var rw in eventrow)
@@ -59,7 +59,7 @@ namespace IdleRPGViewer2
             builder.SetStyle(inboxStyle);
 
             // Finally, publish the notification:
-            NotificationManager notificationManager = (NotificationManager)Application.Context.GetSystemService(Context.NotificationService);
+            var notificationManager = (NotificationManager)Application.Context.GetSystemService(Context.NotificationService);
 
             var notification = builder.Build();
             notificationManager.Notify(EventNotificationId, notification);

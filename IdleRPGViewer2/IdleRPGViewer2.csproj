@@ -97,10 +97,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App.cs" />
-    <Compile Include="CheckerService\CheckerGcmService.cs" />
     <Compile Include="CheckerService\CheckerJobService.cs" />
-    <Compile Include="CheckerService\CheckerService.cs" />
     <Compile Include="CheckerService\CheckerNotification.cs" />
     <Compile Include="GetEvents.cs" />
     <Compile Include="DbConnStr.cs" />
@@ -152,10 +149,6 @@
     <AndroidResource Include="Resources\drawable\Icon02.png" />
   </ItemGroup>
   <ItemGroup>
-    <XamarinComponentReference Include="googleplayservices-gcm">
-      <Visible>False</Visible>
-      <Version>29.0.0.1</Version>
-    </XamarinComponentReference>
     <XamarinComponentReference Include="xamandroidsupportv4-18">
       <Visible>False</Visible>
       <Version>23.2.1</Version>

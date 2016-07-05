@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace IdleRPGViewer2
 {
-    public class GetEventRows
+    public static class GetEventRows
     {
         public static List<EventRow> GetData(string user = "SmithsonianDSP", int hoursHistory = 6, int eventTypes = -1)
         {
@@ -40,7 +40,7 @@ namespace IdleRPGViewer2
                         dbSelect.Parameters.Add(new SqlParameter("@p2", eventTypes));
                     }
 
-                    string SelectCommandText = selectString.ToString();
+                    var SelectCommandText = selectString.ToString();
 
                     dbSelect.CommandText = SelectCommandText;
                     dbSelect.CommandType = CommandType.Text;
@@ -49,6 +49,7 @@ namespace IdleRPGViewer2
                     connection.Open();
                     var tadapter = new SqlDataAdapter(dbSelect);
                     tadapter.Fill(dtable);
+                    connection.Close();
                 }
 
                 catch (Exception ex)
@@ -95,7 +96,7 @@ namespace IdleRPGViewer2
             int eventTypes = 1;
             string user = "SmithsonianDSP";
 
-            DateTimeOffset queryDateRange = CheckerService.GetLastCheckedDateTime();
+            var queryDateRange = CheckerJobService.GetLastCheckedDateTime();
 
             if (queryDateRange <= DateTimeOffset.Now.AddHours(-6))
             {
@@ -126,7 +127,7 @@ namespace IdleRPGViewer2
                     selectString.Append(" AND ([t0].[EventType] = @p2)");
                     dbSelect.Parameters.Add(new SqlParameter("@p2", eventTypes));
                     
-                    string SelectCommandText = selectString.ToString();
+                    var SelectCommandText = selectString.ToString();
 
                     dbSelect.CommandText = SelectCommandText;
                     dbSelect.CommandType = CommandType.Text;
@@ -135,12 +136,14 @@ namespace IdleRPGViewer2
                     connection.Open();
                     var tadapter = new SqlDataAdapter(dbSelect);
                     tadapter.Fill(dtable);
+                    connection.Close();
                 }
 
                 catch (Exception)
                 {
                     return null;
                 }
+                
 
                 foreach (DataRow rw in dtable.Rows)
                 {

@@ -8,16 +8,14 @@ using Android.OS;
 using System.Collections;
 
 using System.Linq;
-
-
+using JobSchedulerType = Android.App.Job.JobScheduler;
+using Android.Util;
 
 namespace IdleRPGViewer2
 {
     [Activity(Label = "IdleRPG Viewer", MainLauncher = true, Icon = "@drawable/icon02")]
     public class MainActivity : Activity 
     {
-
-
 
         string filterUser = "SmithsonianDSP";
         int filterEventType = -1;
@@ -28,7 +26,7 @@ namespace IdleRPGViewer2
 
             SetContentView(Resource.Layout.Main);
 
-            Button buttonShow = FindViewById<Button>(Resource.Id.MyButton);
+            var buttonShow = FindViewById<Button>(Resource.Id.MyButton);
             buttonShow.Click += (sender, e) =>
             {
                 var intent = new Intent(this, typeof(DisplayActivity));
@@ -38,10 +36,10 @@ namespace IdleRPGViewer2
                 StartActivity(intent);
             };
 
-            Button buttonFilterUser = FindViewById<Button>(Resource.Id.FilterUserNameButton);
+            var buttonFilterUser = FindViewById<Button>(Resource.Id.FilterUserNameButton);
             buttonFilterUser.Click += (s, arg) =>
             {
-                PopupMenu menu = new PopupMenu(this, buttonFilterUser);
+                var menu = new PopupMenu(this, buttonFilterUser);
                 menu.Inflate(Resource.Menu.user_popup_menu);
 
                 menu.MenuItemClick += (s1, arg1) =>
@@ -66,10 +64,10 @@ namespace IdleRPGViewer2
                 menu.Show();
             };
 
-            Button buttonFilterEvent = FindViewById<Button>(Resource.Id.FilterEventTypeButton);
+            var buttonFilterEvent = FindViewById<Button>(Resource.Id.FilterEventTypeButton);
             buttonFilterEvent.Click += (s2, arg) =>
             {
-                PopupMenu menu = new PopupMenu(this, buttonFilterEvent);
+                var menu = new PopupMenu(this, buttonFilterEvent);
                 menu.Inflate(Resource.Menu.event_type_popup_menu);
 
                 menu.MenuItemClick += (s1, arg1) =>
@@ -92,10 +90,10 @@ namespace IdleRPGViewer2
                 menu.Show();
             };
 
-            Button buttonDateRange = FindViewById<Button>(Resource.Id.FilterDateRangeButton);
+            var buttonDateRange = FindViewById<Button>(Resource.Id.FilterDateRangeButton);
             buttonDateRange.Click += (s, arg) =>
             {
-                PopupMenu menu = new PopupMenu(this, buttonDateRange);
+                var menu = new PopupMenu(this, buttonDateRange);
                 menu.Inflate(Resource.Menu.daterange_popup_menu);
 
                 menu.MenuItemClick += (s1, arg1) =>
@@ -122,46 +120,39 @@ namespace IdleRPGViewer2
             };
 
 
-            Button buttonTest = FindViewById<Button>(Resource.Id.MyButton2);
+            var buttonTest = FindViewById<Button>(Resource.Id.MyButton2);
             buttonTest.Click += (s, arg) =>
             {
                 try
                 {
-                    if (App.Current.checkerService == null)
-                    {
-                        App.StartCheckerService();
-                        Toast.MakeText(this, "Service Started", Android.Widget.ToastLength.Long).Show();
-                        
-                        CheckerService.SaveLastCheckedDateTime();
-                    }
-                    else
-                    {
-                        var lastChecked = CheckerService.GetLastCheckedDateTime().ToLocalTime();
-                        var lastCheckedString = lastChecked.Date.ToShortDateString() + " " + lastChecked.DateTime.ToShortTimeString(); 
-                        Toast.MakeText(this, "Last Checked: " + lastCheckedString, Android.Widget.ToastLength.Long).Show();
-                    }
+                    var jss = (JobSchedulerType)Application.Context.GetSystemService(JobSchedulerService);
+
+                    if (jss.AllPendingJobs.Count() == 0) 
+                        CheckerJobService.InitializeCheckerService();
+                        //CheckerGcmService.InitializeCheckerService();
+
+                    var lastChecked = CheckerJobService.GetLastCheckedDateTime().ToLocalTime();
+                    var lastCheckedString = lastChecked.Date.ToShortDateString() + " " + lastChecked.DateTime.ToShortTimeString(); 
+                    Toast.MakeText(this, "Last Checked: " + lastCheckedString, Android.Widget.ToastLength.Long).Show();
+                 
                 }
                 catch (Exception ex)
                 {
+                    Log.Error("IdleRPG", ex.Message);
                     Toast.MakeText(this, ex.Message, Android.Widget.ToastLength.Long).Show();
                 }
             };
 
 
-
             buttonTest.LongClick += (s, arg) =>
             {
-                App.StopCheckerService();
-                Toast.MakeText(this, "Service Stopped", Android.Widget.ToastLength.Long).Show();
+                var jss = (JobSchedulerType)GetSystemService(JobSchedulerService);
+                jss.CancelAll();
+
+                Toast.MakeText(this, "All Jobs Stopped", Android.Widget.ToastLength.Long).Show();
             };
 
         }
-
-
-
-
-
-
 
     }
 

@@ -41,8 +41,8 @@ namespace IdleRPGViewer2
             this.ListView.ItemLongClick += (sender, e) =>
              {
                  var selectedFromList = items[e.Position].EventText;
-                 ClipboardManager clipboard = (ClipboardManager)GetSystemService(ClipboardService);
-                 ClipData clip = ClipData.NewPlainText("EventText", selectedFromList);
+                 var clipboard = (ClipboardManager)GetSystemService(ClipboardService);
+                 var clip = ClipData.NewPlainText("EventText", selectedFromList);
                  clipboard.PrimaryClip = clip;
                  Toast.MakeText(this, "EventText Copied", Android.Widget.ToastLength.Short).Show();
              };

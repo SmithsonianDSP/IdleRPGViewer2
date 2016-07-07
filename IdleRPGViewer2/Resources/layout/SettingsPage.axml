@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:showDividers="middle">
+    <TableLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/settingsTableLayout1"
+        android:stretchColumns="*"
+        android:showDividers="middle">
+        <TableRow
+            android:id="@+id/settingsTableRow1"
+            android:measureWithLargestChild="true">
+            <Switch xmlns:tools="http://schemas.android.com/tools"
+                android:layout_height="wrap_content"
+                android:id="@+id/notificationsSwitch1"
+                android:textAlignment="center"
+                android:includeFontPadding="true"
+                android:splitTrack="false"
+                android:showText="false"
+                android:checked="true"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:typeface="normal"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_span="3"
+                android:layout_width="327.0dp"
+                android:text="Notifications for new events" />
+        </TableRow>
+        <TableRow
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:id="@+id/tableRow5">
+            <TextView
+                android:text="Event Check Frequency:"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_column="0"
+                android:id="@+id/settingsCheckLabel"
+                android:typeface="normal"
+                android:layout_height="25.3dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="0.0dp"
+                android:gravity="center"
+                android:layout_gravity="center_vertical"
+                android:textSize="16dp" />
+            <Button
+                android:layout_column="1"
+                android:layout_height="37.3dp"
+                android:textAllCaps="false"
+                android:id="@+id/settingsCheckFrequencyButton"
+                android:gravity="fill_horizontal"
+                android:layout_gravity="fill_vertical"
+                android:textAlignment="center"
+                android:layout_width="144.0dp" />
+        </TableRow>
+        <TableRow
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:id="@+id/tableRow4">
+            <Switch xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/notificationsOnlyGained"
+                android:textAlignment="center"
+                android:includeFontPadding="true"
+                android:splitTrack="false"
+                android:showText="false"
+                android:checked="false"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:typeface="normal"
+                android:textSize="16dp"
+                android:layout_column="0"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_span="3"
+                android:enabled="true"
+                android:visibility="visible"
+                android:text="Only notify if I recieved XP"
+                tools:visibility="visible" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:minWidth="25px"
+            android:minHeight="25px">
+            <Switch xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/notificationUsername"
+                android:textAlignment="center"
+                android:includeFontPadding="true"
+                android:splitTrack="false"
+                android:showText="false"
+                android:checked="false"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:typeface="normal"
+                android:textSize="16dp"
+                android:layout_column="0"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_span="3"
+                android:enabled="true"
+                android:text="I'm from Michigan :(" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:minWidth="25px"
+            android:minHeight="25px">
+        </TableRow>
+    </TableLayout>
+</LinearLayout>

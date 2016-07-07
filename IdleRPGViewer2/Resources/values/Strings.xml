@@ -9,5 +9,5 @@
     <string name="FilterDateRange">Time Span:</string>
     <string name="FilterDateRangeHint">Last 6 Hours</string>
 
-  <string name="SampleButtonText">Start/Stop Service</string>
+  <string name="SampleButtonText">Notification Options</string>
 </resources>

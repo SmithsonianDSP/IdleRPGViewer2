@@ -26,6 +26,10 @@ namespace IdleRPGViewer2
 
             SetContentView(Resource.Layout.Main);
 
+            var prefs = Application.Context.GetSharedPreferences("IdleRPGViewer2", FileCreationMode.Private);
+            filterUser = prefs.GetString("DefaultUser", "SmithsonianDSP");
+
+
             var buttonShow = FindViewById<Button>(Resource.Id.MyButton);
             buttonShow.Click += (sender, e) =>
             {
@@ -37,6 +41,8 @@ namespace IdleRPGViewer2
             };
 
             var buttonFilterUser = FindViewById<Button>(Resource.Id.FilterUserNameButton);
+            buttonFilterUser.Hint = filterUser;
+
             buttonFilterUser.Click += (s, arg) =>
             {
                 var menu = new PopupMenu(this, buttonFilterUser);
@@ -120,21 +126,13 @@ namespace IdleRPGViewer2
             };
 
 
-            var buttonTest = FindViewById<Button>(Resource.Id.MyButton2);
-            buttonTest.Click += (s, arg) =>
+            var buttonSettings = FindViewById<Button>(Resource.Id.MyButton2);
+            buttonSettings.Click += (s, arg) =>
             {
                 try
                 {
-                    var jss = (JobSchedulerType)Application.Context.GetSystemService(JobSchedulerService);
-
-                    if (jss.AllPendingJobs.Count() == 0) 
-                        CheckerJobService.InitializeCheckerService();
-                        //CheckerGcmService.InitializeCheckerService();
-
-                    var lastChecked = CheckerJobService.GetLastCheckedDateTime().ToLocalTime();
-                    var lastCheckedString = lastChecked.Date.ToShortDateString() + " " + lastChecked.DateTime.ToShortTimeString(); 
-                    Toast.MakeText(this, "Last Checked: " + lastCheckedString, Android.Widget.ToastLength.Long).Show();
-                 
+                    var intent = new Intent(this, typeof(SettingsActivity));
+                    StartActivity(intent);
                 }
                 catch (Exception ex)
                 {
@@ -144,12 +142,18 @@ namespace IdleRPGViewer2
             };
 
 
-            buttonTest.LongClick += (s, arg) =>
+            buttonSettings.LongClick += (s, arg) =>
             {
-                var jss = (JobSchedulerType)GetSystemService(JobSchedulerService);
-                jss.CancelAll();
+                var lastChecked = CheckerJobService.GetLastCheckedDateTime().ToLocalTime();
+                var lastCheckedString = lastChecked.Date.ToShortDateString() + " " + lastChecked.DateTime.ToShortTimeString();
+                Toast.MakeText(this, "Last Checked: " + lastCheckedString, Android.Widget.ToastLength.Long).Show();
 
-                Toast.MakeText(this, "All Jobs Stopped", Android.Widget.ToastLength.Long).Show();
+                var jss = (JobSchedulerType)GetSystemService(JobSchedulerService);
+                Log.Debug("IdleRPG", "Scheduled Jobs: {0}", jss.AllPendingJobs.Count);
+                
+                //jss.CancelAll();
+
+                //Toast.MakeText(this, "All Jobs Stopped", Android.Widget.ToastLength.Long).Show();
             };
 
         }

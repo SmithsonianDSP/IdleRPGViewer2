@@ -105,26 +105,62 @@ namespace IdleRPGViewer2
 			// aapt resource value: 0x7f060005
 			public const int UserFilterLabel = 2131099653;
 			
-			// aapt resource value: 0x7f060011
-			public const int daterange12hours = 2131099665;
+			// aapt resource value: 0x7f06001a
+			public const int check10minutes = 2131099674;
+			
+			// aapt resource value: 0x7f06001b
+			public const int check15minutes = 2131099675;
+			
+			// aapt resource value: 0x7f06001c
+			public const int check30minutes = 2131099676;
+			
+			// aapt resource value: 0x7f060019
+			public const int check5minutes = 2131099673;
+			
+			// aapt resource value: 0x7f06001d
+			public const int check60minutes = 2131099677;
+			
+			// aapt resource value: 0x7f06001f
+			public const int daterange12hours = 2131099679;
+			
+			// aapt resource value: 0x7f060020
+			public const int daterange24hours = 2131099680;
+			
+			// aapt resource value: 0x7f060021
+			public const int daterange48hours = 2131099681;
+			
+			// aapt resource value: 0x7f06001e
+			public const int daterange6hours = 2131099678;
+			
+			// aapt resource value: 0x7f060022
+			public const int eventfilterAll = 2131099682;
+			
+			// aapt resource value: 0x7f060024
+			public const int eventfilterItems = 2131099684;
+			
+			// aapt resource value: 0x7f060023
+			public const int eventfilterXP = 2131099683;
+			
+			// aapt resource value: 0x7f060018
+			public const int notificationUsername = 2131099672;
+			
+			// aapt resource value: 0x7f060017
+			public const int notificationsOnlyGained = 2131099671;
 			
 			// aapt resource value: 0x7f060012
-			public const int daterange24hours = 2131099666;
-			
-			// aapt resource value: 0x7f060013
-			public const int daterange48hours = 2131099667;
-			
-			// aapt resource value: 0x7f060010
-			public const int daterange6hours = 2131099664;
-			
-			// aapt resource value: 0x7f060014
-			public const int eventfilterAll = 2131099668;
-			
-			// aapt resource value: 0x7f060016
-			public const int eventfilterItems = 2131099670;
+			public const int notificationsSwitch1 = 2131099666;
 			
 			// aapt resource value: 0x7f060015
-			public const int eventfilterXP = 2131099669;
+			public const int settingsCheckFrequencyButton = 2131099669;
+			
+			// aapt resource value: 0x7f060014
+			public const int settingsCheckLabel = 2131099668;
+			
+			// aapt resource value: 0x7f060010
+			public const int settingsTableLayout1 = 2131099664;
+			
+			// aapt resource value: 0x7f060011
+			public const int settingsTableRow1 = 2131099665;
 			
 			// aapt resource value: 0x7f06000e
 			public const int space1 = 2131099662;
@@ -141,14 +177,20 @@ namespace IdleRPGViewer2
 			// aapt resource value: 0x7f06000a
 			public const int tableRow3 = 2131099658;
 			
-			// aapt resource value: 0x7f060019
-			public const int userfilterAll = 2131099673;
+			// aapt resource value: 0x7f060016
+			public const int tableRow4 = 2131099670;
 			
-			// aapt resource value: 0x7f060017
-			public const int userfilterSmith = 2131099671;
+			// aapt resource value: 0x7f060013
+			public const int tableRow5 = 2131099667;
 			
-			// aapt resource value: 0x7f060018
-			public const int userfilterYam = 2131099672;
+			// aapt resource value: 0x7f060027
+			public const int userfilterAll = 2131099687;
+			
+			// aapt resource value: 0x7f060025
+			public const int userfilterSmith = 2131099685;
+			
+			// aapt resource value: 0x7f060026
+			public const int userfilterYam = 2131099686;
 			
 			static Id()
 			{
@@ -169,6 +211,9 @@ namespace IdleRPGViewer2
 			// aapt resource value: 0x7f030001
 			public const int Main = 2130903041;
 			
+			// aapt resource value: 0x7f030002
+			public const int SettingsPage = 2130903042;
+			
 			static Layout()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -183,13 +228,16 @@ namespace IdleRPGViewer2
 		{
 			
 			// aapt resource value: 0x7f050000
-			public const int daterange_popup_menu = 2131034112;
+			public const int checkfreq_popup_menu = 2131034112;
 			
 			// aapt resource value: 0x7f050001
-			public const int event_type_popup_menu = 2131034113;
+			public const int daterange_popup_menu = 2131034113;
 			
 			// aapt resource value: 0x7f050002
-			public const int user_popup_menu = 2131034114;
+			public const int event_type_popup_menu = 2131034114;
+			
+			// aapt resource value: 0x7f050003
+			public const int user_popup_menu = 2131034115;
 			
 			static Menu()
 			{

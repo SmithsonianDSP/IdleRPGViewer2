@@ -5,6 +5,8 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Text;
 using System.Linq;
+using Android.App;
+using Android.Content;
 
 namespace IdleRPGViewer2
 {
@@ -18,32 +20,32 @@ namespace IdleRPGViewer2
                 var eventRows = new List<EventRow>();
 
 
-                    var dbSelect = new SqlCommand();
+                var dbSelect = new SqlCommand();
 
-                    var selectString = new StringBuilder();
+                var selectString = new StringBuilder();
 
-                    selectString.Append("SELECT [t0].[Id], [t0].[UserName], [t0].[EventText], [t0].[QuestLevel], [t0].[EventType] FROM [dbo].[Events] AS [t0]");
-                    selectString.Append(" WHERE ([t0].[Id] >= @p0)");
+                selectString.Append("SELECT [t0].[Id], [t0].[UserName], [t0].[EventText], [t0].[QuestLevel], [t0].[EventType] FROM [dbo].[Events] AS [t0]");
+                selectString.Append(" WHERE ([t0].[Id] >= @p0)");
 
-                    dbSelect.Parameters.Add(new SqlParameter("@p0", DateTimeOffset.Now.AddHours(-1 * hoursHistory)));
+                dbSelect.Parameters.Add(new SqlParameter("@p0", DateTimeOffset.Now.AddHours(-1 * hoursHistory)));
 
-                    if (user != "*")
-                    {
-                        selectString.Append("  AND ([t0].[UserName] = @p1)");
-                        dbSelect.Parameters.Add(new SqlParameter("@p1", user));
-                    }
+                if (user != "*")
+                {
+                    selectString.Append("  AND ([t0].[UserName] = @p1)");
+                    dbSelect.Parameters.Add(new SqlParameter("@p1", user));
+                }
 
-                    if (eventTypes != -1)
-                    {
-                        selectString.Append(" AND ([t0].[EventType] = @p2)");
-                        dbSelect.Parameters.Add(new SqlParameter("@p2", eventTypes));
-                    }
+                if (eventTypes != -1)
+                {
+                    selectString.Append(" AND ([t0].[EventType] = @p2)");
+                    dbSelect.Parameters.Add(new SqlParameter("@p2", eventTypes));
+                }
 
-                    var selectCommandText = selectString.ToString();
+                var selectCommandText = selectString.ToString();
 
-                    dbSelect.CommandText = selectCommandText;
-                    dbSelect.CommandType = CommandType.Text;
-                    dbSelect.Connection = connection;
+                dbSelect.CommandText = selectCommandText;
+                dbSelect.CommandType = CommandType.Text;
+                dbSelect.Connection = connection;
 
                 try
                 {
@@ -87,7 +89,10 @@ namespace IdleRPGViewer2
         {
             // set default query params for background check queries
             int eventTypes = 1;
-            string user = "SmithsonianDSP";
+            var prefs = Application.Context.GetSharedPreferences("IdleRPGViewer2", FileCreationMode.Private);
+
+            string user = prefs.GetString("NotifyUsername", "SmithsonianDSP");
+
 
             var queryDateRange = CheckerJobService.GetLastCheckedDateTime();
 
@@ -138,14 +143,20 @@ namespace IdleRPGViewer2
                 {
                     try
                     {
-                        eventRows.Add(new EventRow
+
+                        var eventString = rw[2].ToString().Replace("*", "");
+
+                        if (ShouldNotify(eventString, user))
                         {
-                            EventDate = DateTimeOffset.Parse(rw[0].ToString()),
-                            User = rw[1].ToString(),
-                            EventText = rw[2].ToString().Replace("*", ""),
-                            QLevel = int.Parse(rw[3].ToString()),
-                            EventType = int.Parse(rw[4].ToString())
-                        });
+                            eventRows.Add(new EventRow
+                            {
+                                EventDate = DateTimeOffset.Parse(rw[0].ToString()),
+                                User = rw[1].ToString(),
+                                EventText = eventString,
+                                QLevel = int.Parse(rw[3].ToString()),
+                                EventType = int.Parse(rw[4].ToString())
+                            });
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -156,7 +167,21 @@ namespace IdleRPGViewer2
             }
         }
 
+        static readonly string[] splitString = { "but was no match for" };
 
+
+        static bool ShouldNotify(string eventString, string user)
+        {
+            var prefs = Application.Context.GetSharedPreferences("IdleRPGViewer2", FileCreationMode.Private);
+
+            if (prefs.GetBoolean("OnlyIfXPGained", false))
+            {
+                //Try splitting the Event Text on 'but was no match for'. 
+                //If only one string returned, notify; if two strings, check if second part contains username (and gained XP)
+                return (eventString.Split(splitString, StringSplitOptions.RemoveEmptyEntries).LastOrDefault().Contains(user));
+            }
+            return true;
+        }
 
     }
     public class EventRow

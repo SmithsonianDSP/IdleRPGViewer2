@@ -22,8 +22,8 @@ namespace IdleRPGViewer2
         static string logTag = "IdleRPG_JS";
         static int jobNum = 1000;
 
-        static public readonly int jobIntervalMinutes = 5;
-        static readonly int jobIntervalMs = (jobIntervalMinutes * 60 * 1000);  // Convert to milliseconds
+        //static public readonly int jobIntervalMinutes = 10;
+        //static readonly int jobIntervalMs = (jobIntervalMinutes * 60 * 1000);  // Convert to milliseconds
 
         public override void OnCreate()
         {
@@ -95,11 +95,27 @@ namespace IdleRPGViewer2
             }
         }
 
+
+
+        public static void CancelJobs()
+        {
+            Log.Info(logTag, "Cancelling all scheduled jobs");
+            var jss = (JobSchedulerType)Application.Context.GetSystemService(JobSchedulerService);
+            Log.Info(logTag, "Current Pending Jobs: {0}", jss.AllPendingJobs.Count);
+            jss.CancelAll();
+            Log.Info(logTag, "All pending jobs canceled");
+        }
+
+
         public static void ScheduleJob()
         {
             Log.Info(logTag, "CheckerJobService : ScheduleJob - Scheduling Job");
 
             var compName = new ComponentName(Application.Context, Java.Lang.Class.FromType(typeof(CheckerJobService)));
+
+            var prefs = Application.Context.GetSharedPreferences("IdleRPGViewer2", FileCreationMode.Private);
+            var jobIntervalMinutes = prefs.GetInt("CheckFrequency", 15);    // Get the CheckFrequency from the user settings
+            var jobIntervalMs = (jobIntervalMinutes * 60 * 1000);           // Convert to milliseconds
 
             var myTask = new JobInfo.Builder(jobNum, compName)
                 .SetPeriodic(jobIntervalMs)
@@ -111,14 +127,19 @@ namespace IdleRPGViewer2
 
             var jss = (JobSchedulerType)Application.Context.GetSystemService(JobSchedulerService);
             var status = jss.Schedule(myTask);
+
             Log.Info(logTag, "CheckerJobService : ScheduleJob - Job Scheduled " + (status == JobSchedulerType.ResultSuccess ? "Success" : "Failure"));
         }
+
+
 
         public override bool OnStopJob(JobParameters args)
         {
             Log.Debug(logTag, "CheckerJobService : OnJobStop");
             return true;
         }
+
+
 
         static void SaveLastCheckedDateTime()
         {

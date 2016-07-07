@@ -21,8 +21,12 @@ namespace IdleRPGViewer2
             var stackBuilder = TaskStackBuilder.Create(packageContext);
             stackBuilder.AddParentStack(Java.Lang.Class.FromType(typeof(MainActivity)));
 
+            var prefs = Application.Context.GetSharedPreferences("IdleRPGViewer2", FileCreationMode.Private);
+            var username = prefs.GetString("NotifyUsername", "SmithsonianDSP");
+
             var resultIntent = new Intent(packageContext, typeof(DisplayActivity));
-            resultIntent.PutExtra("username", "SmithsonianDSP");
+
+            resultIntent.PutExtra("username", username);
             resultIntent.PutExtra("eventfilter", -1);
             resultIntent.PutExtra("daterange", 6);
 
